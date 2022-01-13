@@ -1,0 +1,19 @@
+version: '3'
+services:
+  rabbitMq:
+    image: rabbitmq:3-management
+    container_name: rabbitMq-e2e
+    networks:
+      - e2e-network
+    
+
+  token-service:
+    container_name: token-service-e2e
+    image: token-service
+    environment:
+      - HOSTSETTING=END_TO_END
+    networks:
+      - e2e-network
+
+networks:
+  e2e-network:
