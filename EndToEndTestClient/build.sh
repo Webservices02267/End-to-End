@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-mvn clean install
+docker build . -t e2e-client

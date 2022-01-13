@@ -1,8 +1,9 @@
 #!/bin/bash
 set -e
 
-# Build all docker images and mvn 
+pushd EndToEndTestClient
 ./build.sh
+popd
 
 # Startup all services for this service
 ./deploy.sh 
