@@ -26,4 +26,3 @@ services:
 
 networks:
   e2e-network:
-    name: e2e-network
