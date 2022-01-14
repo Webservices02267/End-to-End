@@ -2,4 +2,4 @@
 set -e
 
 docker-compose down
-docker rm /e2e-client
+docker rm -f /e2e-client
