@@ -2,18 +2,28 @@ version: '3'
 services:
   rabbitMq:
     image: rabbitmq:3-management
-    container_name: rabbitMq-e2e
+    container_name: e2e-rabbitMq
     networks:
       - e2e-network
-    
 
-  token-service:
-    container_name: token-service-e2e
+  rest:
+    container_name: e2e-rest
+    image: rest-service
+    environment:
+      - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
+    ports:
+      - 8181:8181
+    networks:
+      - e2e-network
+
+  token:
+    container_name: e2e-token
     image: token-service
     environment:
-      - HOSTSETTING=END_TO_END
+      - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
     networks:
       - e2e-network
 
 networks:
   e2e-network:
+    name: e2e-network

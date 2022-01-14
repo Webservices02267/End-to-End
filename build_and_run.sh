@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-pushd EndToEndTestClient
+pushd Client
 ./build.sh
 popd
 
