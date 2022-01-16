@@ -10,7 +10,7 @@ services:
     container_name: e2e-rest
     image: rest-service
     environment:
-      - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
+      - RABBIT_MQ_HOSTNAME=rabbitMq
     ports:
       - 8181:8181
     networks:
@@ -20,7 +20,7 @@ services:
     container_name: e2e-token
     image: token-service
     environment:
-      - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
+      - RABBIT_MQ_HOSTNAME=rabbitMq
     networks:
       - e2e-network
 
