@@ -11,8 +11,6 @@ services:
     image: rest-service
     environment:
       - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
-    ports:
-      - 8181:8181
     networks:
       - e2e-network
     depends_on:
