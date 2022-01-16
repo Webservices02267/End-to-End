@@ -24,7 +24,7 @@ public class TokenClient {
 	public Response getCurrentStatus() {
 		var res = client
 				.target(host)
-				.path("tokens/status")
+				.path("/tokens/status")
 				.request(MediaType.TEXT_PLAIN)
 				.accept(MediaType.TEXT_PLAIN)
 				.get();
