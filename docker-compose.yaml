@@ -15,6 +15,8 @@ services:
       - 8181:8181
     networks:
       - e2e-network
+    depends_on:
+      - rabbitMq
 
   token:
     container_name: e2e-token
@@ -23,6 +25,8 @@ services:
       - RABBIT_MQ_HOSTNAME=rabbitMq
     networks:
       - e2e-network
+    depends_on:
+      - rabbitMq
 
 networks:
   e2e-network:
