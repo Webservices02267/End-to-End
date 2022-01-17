@@ -30,10 +30,13 @@ pipeline {
         }
     }
     post {
-        always {
+        success {
             sh 'echo "pipeline complete"'
-            //sh "chmod +x -R ${env.WORKSPACE}"
-            //sh './stop.sh'
+            sh "chmod +x -R ${env.WORKSPACE}"
+            sh './stop.sh'
+        }
+        failure  {
+            sh 'echo "All services is left running. Come and check me out or make a new run."'
         }
     }
 }
