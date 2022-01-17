@@ -1,13 +1,17 @@
 #!/bin/bash
 set -e
 
-pushd Client
-./build.sh
-popd
+./stop.sh
 
 # Startup all services for this service
 ./deploy.sh 
 sleep 5
+
+
+pushd Client
+./build.sh
+popd
+
 
 # Test the services
 ./test.sh
