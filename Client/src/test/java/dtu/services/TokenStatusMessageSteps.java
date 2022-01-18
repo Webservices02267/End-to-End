@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import javax.ws.rs.core.Response;
 
-public class ClientCreateTokenSteps {
+public class TokenStatusMessageSteps {
   TokenClient tokenClient = new TokenClient();
   Response response = null;
 
