@@ -26,5 +26,35 @@ services:
     depends_on:
       - rabbitMq
 
+  payment:
+    container_name: e2e-payment
+    image: payment-service
+    environment:
+      - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
+    networks:
+      - e2e-network
+    depends_on:
+      - rabbitMq
+
+  account:
+    container_name: e2e-account
+    image: account-service
+    environment:
+      - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
+    networks:
+      - e2e-network
+    depends_on:
+      - rabbitMq
+
+  report:
+    container_name: e2e-report
+    image: report-service
+    environment:
+      - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
+    networks:
+      - e2e-network
+    depends_on:
+      - rabbitMq
+
 networks:
   e2e-network:
