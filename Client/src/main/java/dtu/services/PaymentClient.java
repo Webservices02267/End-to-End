@@ -11,7 +11,7 @@ public class PaymentClient extends AbstractClient {
     public Response getStatus() {
         var res = client
                 .target(host)
-                .path("/payments/status")
+                .path("/services/payment")
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .get();

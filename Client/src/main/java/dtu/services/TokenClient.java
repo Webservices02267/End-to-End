@@ -13,7 +13,7 @@ public class TokenClient extends AbstractClient {
 	public Response getCurrentStatus() {
 		var res = client
 				.target(host)
-				.path("/tokens/status")
+				.path("/services/token")
 				.request(MediaType.TEXT_PLAIN)
 				.accept(MediaType.TEXT_PLAIN)
 				.get();

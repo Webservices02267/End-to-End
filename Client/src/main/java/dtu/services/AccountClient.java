@@ -7,7 +7,7 @@ public class AccountClient extends AbstractClient {
     public Response getStatus() {
         var res = client
                 .target(host)
-                .path("/customers/status")
+                .path("/services/account")
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .get();

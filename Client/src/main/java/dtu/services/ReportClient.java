@@ -8,7 +8,7 @@ public class ReportClient extends AbstractClient {
     public Response getStatus() {
         var res = client
                 .target(host)
-                .path("/reports/status")
+                .path("/services/report")
                 .request(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .get();
