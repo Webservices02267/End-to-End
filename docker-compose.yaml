@@ -13,6 +13,8 @@ services:
       - RABBIT_MQ_HOSTNAME=e2e-rabbitMq
     networks:
       - e2e-network
+#    ports:
+#      - 8181:8181  # Important to only be added locally
     depends_on:
       - rabbitMq
 
