@@ -6,7 +6,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 public class PaymentClient {
-    public static final String HTTP_LOCALHOST_8080 = "http://localhost:8080";
+    public static final String HTTP_LOCALHOST_8080 = "http://localhost:8181";
     public static final String HTTP_DOCKER_LOCALHOST_8181 = "http://e2e-rest:8181";
     public static String host = HTTP_LOCALHOST_8080;
     private final Client client = ClientBuilder.newClient();
