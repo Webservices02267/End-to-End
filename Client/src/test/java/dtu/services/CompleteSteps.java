@@ -66,9 +66,9 @@ public class CompleteSteps {
 
     @When("the customer requests a token")
     public void theCustomerRequestsAToken() {
-        var tokens = tokenClient.createTokens(customerId, 5).readEntity(String[].class);
-        System.out.println(Arrays.toString(tokens));
-        token = tokens[0];
+        var tokens = tokenClient.createTokens(customerId, 5).readEntity(String.class);
+        System.out.println(tokens);
+        //token = tokens[0];
     }
 
     @Then("the token service returns tokens")
