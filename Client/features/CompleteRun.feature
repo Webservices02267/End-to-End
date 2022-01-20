@@ -3,8 +3,8 @@ Feature: Complete Run
   Scenario: A vailid customer requests tokens
     Given a customer with bank account and balance 1000
     And customer is registered in DTU pay
-    When the customer requests a token
-    Then the token service returns tokens
+    When the customer requests 5 tokens
+    Then the customer have 5 tokens
 
 #  Scenario: Complete run
 #    Given a customer with bank account and balance 1000

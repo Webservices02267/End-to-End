@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class CompleteSteps {
 
@@ -32,7 +33,7 @@ public class CompleteSteps {
     String merchantBankAccountId;
     DTO.CreateAccountResponse customerAccount;
     DTO.CreateAccountResponse merchantAccount;
-    String token;
+    TokenDTO tokens;
 
 
 
@@ -69,25 +70,26 @@ public class CompleteSteps {
         System.out.println(merchantAccount);
     }
 
-    @When("the customer requests a token")
-    public void theCustomerRequestsAToken() {
+    @When("the customer requests {int} tokens")
+    public void theCustomerRequestsTokens(Integer numberOfTokens) {
         
-        var tokens = tokenClient.createTokens(new CustomerTokensDTO(customerAccount.accountId, 5)).readEntity(TokenDTO.class);
+        tokens = tokenClient.createTokens(new CustomerTokensDTO(customerAccount.accountId, numberOfTokens)).readEntity(TokenDTO.class);
 
         System.out.println(tokens);
 
         //token = tokens[0];
     }
 
-    @Then("the token service returns tokens")
-    public void theTokenServiceReturnsTokens() {
 
+    @Then("the customer have {int} tokens")
+    public void theCustomerHaveTokens(Integer numberOfTokens) {
+        assertEquals(numberOfTokens.intValue(), tokens.getTokens().size());
     }
 
     @When("the merchant initiates the payment for {int}")
     public void theMerchantInitiatesThePaymentFor(int amount) {
         String description = "Very good description";
-        PaymentDTO p = new PaymentDTO(token, merchantAccount.accountId, amount, description);
+        PaymentDTO p = new PaymentDTO(tokens.getTokens().get(0), merchantAccount.accountId, amount, description);
         var res = paymentClient.pay(p);
     }
 
