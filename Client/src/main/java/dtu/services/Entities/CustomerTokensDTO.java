@@ -13,9 +13,16 @@ package dtu.services.Entities;
 		public String customerId;
 		public Integer numberOfTokens;
 
+		public CustomerTokensDTO(String customerId, Integer numberOfTokens) {
+			this.customerId = customerId;
+			this.numberOfTokens = numberOfTokens;
+		}
+
+
 		public CustomerTokensDTO() {
 
 		}
+
 
 		public String getCustomerId() {
 			return customerId;

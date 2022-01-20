@@ -24,17 +24,12 @@ public class TokenClient extends AbstractClient {
 	}
 
 
-	public Response createTokens(String customerId, int amount) {
-		var ctd = new CustomerTokensDTO();
-		ctd.customerId = customerId;
-		ctd.numberOfTokens = amount;
-
-		System.out.println("\n\n" + ctd + "\n\n");
+	public Response createTokens(CustomerTokensDTO customerTokenDTO) {
 		//String request = new GsonBuilder().setPrettyPrinting().create().toJson(ctd);
 		return client.target(host)
 				.path("/customers/tokens")
 				.request(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
-				.post(Entity.json(ctd.toString()));
+				.post(Entity.json(customerTokenDTO));
     }
 }

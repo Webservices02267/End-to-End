@@ -25,7 +25,7 @@ public class AccountClient extends AbstractClient {
                 .post(Entity.json(customerBankAccountId));
     }
 
-    public Response registerMerchant(String merchantBankAccountId) {
+    public Response registerMerchant(AccountDTO merchantBankAccountId) {
         return client
                 .target(host)
                 .path("/merchants")

@@ -4,23 +4,20 @@ public class PaymentDTO {
 
 	public String token;
 	public String merchant;
-	public String amount;
+	public int amount;
 	public String description;
+
+	public PaymentDTO(String token, String merchant, int amount2, String description) {
+		this.token = token;
+		this.merchant = merchant;
+		this.amount = amount2;
+		this.description = description;
+	}
 
 	public PaymentDTO() {
 
 	}
 
-	@Override
-	public String toString() {
-		final StringBuffer sb = new StringBuffer("PaymentDTO{");
-		sb.append("token='").append(token).append('\'');
-		sb.append(", merchant='").append(merchant).append('\'');
-		sb.append(", amount='").append(amount).append('\'');
-		sb.append(", description='").append(description).append('\'');
-		sb.append('}');
-		return sb.toString();
-	}
 
 	public String getToken() {
 		return token;
@@ -38,11 +35,11 @@ public class PaymentDTO {
 		this.merchant = merchant;
 	}
 
-	public String getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
@@ -52,5 +49,11 @@ public class PaymentDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "PaymentDTO [amount=" + amount + ", description=" + description + ", merchant=" + merchant + ", token="
+				+ token + "]";
 	}
 }
