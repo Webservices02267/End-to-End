@@ -1,5 +1,5 @@
 
-package dtu.ws.fastmoney;
+package dtu.services.Entities;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

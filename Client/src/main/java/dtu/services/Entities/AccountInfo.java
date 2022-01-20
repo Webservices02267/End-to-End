@@ -1,5 +1,5 @@
 
-package dtu.ws.fastmoney;
+package dtu.services.Entities;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

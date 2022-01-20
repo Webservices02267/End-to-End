@@ -10,6 +10,8 @@ import java.io.InputStream;
 
 public class BankClient extends AbstractClient {
 
+
+
     public static class Account {
         public String accountId;
         public User user;
@@ -78,6 +80,14 @@ public class BankClient extends AbstractClient {
                 .path("/rest/accounts/" + accountId)
                 .request(MediaType.TEXT_PLAIN)
                 .accept(MediaType.TEXT_PLAIN)
+                .delete();
+    }
+
+    public Response getAccount(String accountId) {
+        return client.target("http://fm-00.compute.dtu.dk:80")
+                .path("/rest/accounts/" + accountId)
+                .request(MediaType.TEXT_PLAIN)
+                .accept(MediaType.APPLICATION_JSON)
                 .delete();
     }
 

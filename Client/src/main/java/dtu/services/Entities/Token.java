@@ -1,37 +1,42 @@
 package dtu.services.Entities;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Token {
+  public String customerId = null;
+  public String tokenUuid = null;
+  public Boolean tokenValidity;
 
-  private String customerId = null;
-  private String uuid = null;
+  public Token (String id, String tokenId, Boolean valid) {
+    this.customerId = id;
+    this.tokenUuid = tokenId;
+    this.tokenValidity = valid;
+  }
 
   public Token() {
-  }
-  public Token(String customerId) {
-    this.customerId = customerId;
-    setUuid(UUID.randomUUID().toString());
-  }
-  
-  public Token(String customerId, String uuid) {
-	    this.customerId = customerId;
-	    this.setUuid(uuid);
-	  }
-  
-  public String getCustomerId() {
-    return customerId;
-  }
-  public void setCustomerId(String customerId) {
-    this.customerId = customerId;
-  }
-  public String getUuid() {
-    return uuid;
-  }
-public void setUuid(String uuid) {
-	this.uuid = uuid;
-}
 
+  }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Token token = (Token) o;
+    return Objects.equals(customerId, token.customerId) && Objects.equals(tokenUuid, token.tokenUuid) && Objects.equals(tokenValidity, token.tokenValidity);
+  }
 
-  
+  @Override
+  public int hashCode() {
+    return Objects.hash(customerId, tokenUuid, tokenValidity);
+  }
+
+  @Override
+  public String toString() {
+    final StringBuffer sb = new StringBuffer("Token{");
+    sb.append("customerId='").append(customerId).append('\'');
+    sb.append(", tokenUuid='").append(tokenUuid).append('\'');
+    sb.append(", tokenValidity=").append(tokenValidity);
+    sb.append('}');
+    return sb.toString();
+  }
 }
