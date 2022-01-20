@@ -1,13 +1,12 @@
 package dtu.services;
 
 
-import dtu.services.Entities.Token;
+import dtu.services.Entities.CustomerTokensDTO;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 
 public class TokenClient extends AbstractClient {
 
@@ -24,22 +23,18 @@ public class TokenClient extends AbstractClient {
 		return res;
 	}
 
-	public static class CustomerTokensDTO {
-		public String customerId;
-		public int numberOfTokens;
-		public CustomerTokensDTO() {
 
-		}
-	}
-
-    public Response createTokens(String customerId, int amount) {
+	public Response createTokens(String customerId, int amount) {
 		var ctd = new CustomerTokensDTO();
 		ctd.customerId = customerId;
 		ctd.numberOfTokens = amount;
+
+		System.out.println("\n\n" + ctd + "\n\n");
+		//String request = new GsonBuilder().setPrettyPrinting().create().toJson(ctd);
 		return client.target(host)
 				.path("/customers/tokens")
 				.request(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
-				.post(Entity.json(ctd));
+				.post(Entity.json(ctd.toString()));
     }
 }

@@ -4,6 +4,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import dtu.services.Entities.AccountDTO;
+
 public class AccountClient extends AbstractClient {
     public Response getStatus() {
         return client
@@ -14,7 +16,7 @@ public class AccountClient extends AbstractClient {
                 .get();
     }
 
-    public Response registerCustomer(String customerBankAccountId) {
+    public Response registerCustomer(AccountDTO customerBankAccountId) {
         return client
                 .target(host)
                 .path("/customers")

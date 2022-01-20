@@ -1,6 +1,7 @@
 package dtu.services;
 
 import dtu.services.Entities.Account;
+import dtu.services.Entities.AccountDTO;
 import dtu.services.Entities.Token;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
@@ -25,7 +26,7 @@ public class CompleteSteps {
 
     String customerBankAccountId;
     String merchantBankAccountId;
-    String customerId;
+    AccountDTO customerId;
     String merchantId;
     String token;
 
@@ -54,7 +55,7 @@ public class CompleteSteps {
 
     @And("customer is registered in DTU pay")
     public void customerIsRegisteredInDTUPay() {
-        customerId = accountClient.registerCustomer(customerBankAccountId).readEntity(String.class);
+        customerId = accountClient.registerCustomer(new AccountDTO(customerBankAccountId)).readEntity(AccountDTO.class);
         System.out.println(customerId);
     }
 
@@ -66,7 +67,7 @@ public class CompleteSteps {
 
     @When("the customer requests a token")
     public void theCustomerRequestsAToken() {
-        var tokens = tokenClient.createTokens(customerId, 5).readEntity(String.class);
+        var tokens = tokenClient.createTokens(customerId.getAccountNumber(), 5).readEntity(String.class);
         System.out.println(tokens);
         //token = tokens[0];
     }
@@ -84,7 +85,7 @@ public class CompleteSteps {
 
     @Then("the balance of the customer is {int}")
     public void theBalanceOfTheCustomerIs(int arg0) {
-        var account = bankClient.getAccount(customerId).readEntity(Account.class);
+        var account = bankClient.getAccount(customerId.getAccountNumber()).readEntity(Account.class);
         assertEquals(account.getBalance(), new BigDecimal(String.valueOf(arg0)));
     }
 
@@ -98,7 +99,7 @@ public class CompleteSteps {
     Response report;
     @When("the customer requests a report")
     public void theCustomerRequestsAReport() {
-        report = reportClient.getCustomerReport(customerId);
+        report = reportClient.getCustomerReport(customerId.getAccountNumber());
     }
 
     @Then("the report contains a payment")

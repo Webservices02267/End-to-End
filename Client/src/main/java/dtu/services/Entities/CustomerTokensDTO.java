@@ -1,6 +1,15 @@
 package dtu.services.Entities;
 
-public class CustomerTokensDTO {
+//import java.io.Serializable;
+
+
+
+//public class CustomerTokensDTO implements Serializable {
+
+		
+//		private static final long serialVersionUID = 1874329874329809234L;
+
+		public class CustomerTokensDTO {		
 		public String customerId;
 		public Integer numberOfTokens;
 
