@@ -4,7 +4,7 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import dtu.services.Entities.AccountDTO;
+import dtu.services.Entities.DTO;
 
 public class AccountClient extends AbstractClient {
     public Response getStatus() {
@@ -16,7 +16,7 @@ public class AccountClient extends AbstractClient {
                 .get();
     }
 
-    public Response registerCustomer(AccountDTO customerBankAccountId) {
+    public Response registerCustomer(DTO.CreateAccount customerBankAccountId) {
         return client
                 .target(host)
                 .path("/customers")
@@ -25,7 +25,7 @@ public class AccountClient extends AbstractClient {
                 .post(Entity.json(customerBankAccountId));
     }
 
-    public Response registerMerchant(AccountDTO merchantBankAccountId) {
+    public Response registerMerchant(DTO.CreateAccount merchantBankAccountId) {
         return client
                 .target(host)
                 .path("/merchants")
