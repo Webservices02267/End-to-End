@@ -35,6 +35,14 @@ public class DTO {
         public String merchant;
         public String amount;
         public String description;
+        public CreatePayment(String token, String merchant, String amount, String description) {
+            this.token = token;
+            this.merchant = merchant;
+            this.amount = amount;
+            this.description = description;
+        }
+        public CreatePayment() {
+        }
         @Override
         public String toString() {
             return "CreatePayment [amount=" + amount + ", description=" + description + ", merchant=" + merchant

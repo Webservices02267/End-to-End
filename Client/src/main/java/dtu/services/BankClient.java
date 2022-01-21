@@ -4,6 +4,9 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import dtu.services.Entities.AccountInfo;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -88,7 +91,7 @@ public class BankClient extends AbstractClient {
                 .path("/rest/accounts/" + accountId)
                 .request(MediaType.TEXT_PLAIN)
                 .accept(MediaType.APPLICATION_JSON)
-                .delete();
+                .get();
     }
 
 

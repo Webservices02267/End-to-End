@@ -36,6 +36,8 @@ public class CompleteSteps {
     DTO.CreateAccountResponse merchantAccount;
     TokenDTO tokens;
 
+    Response latestResponse;
+
 
     @After
     public void retireAccounts() {
@@ -84,8 +86,6 @@ public class CompleteSteps {
         tokens = tokenClient.createTokens(new CustomerTokensDTO(customerAccount.accountId, numberOfTokens)).readEntity(TokenDTO.class);
 
         System.out.println(tokens);
-
-        //token = tokens[0];
     }
 
 
@@ -95,22 +95,33 @@ public class CompleteSteps {
     }
 
     @When("the merchant initiates the payment for {int}")
-    public void theMerchantInitiatesThePaymentFor(int amount) {
+    public void theMerchantInitiatesThePaymentFor(Integer amount) {
         String description = "Very good description";
-        PaymentDTO p = new PaymentDTO(tokens.getTokens().get(0), merchantAccount.accountId, amount, description);
-        var res = paymentClient.pay(p);
+        String token = tokens.tokens.stream().findFirst().get();
+        DTO.CreatePayment payment = new DTO.CreatePayment(token, merchantAccount.accountId, String.valueOf(amount), description);
+        System.out.println("Customer Bank account: " + customerBankAccountId + ", Customer Account Id: " + customerAccount.accountId);
+        System.out.println("Merchant Bank account: " + merchantBankAccountId + ", Customer Account Id: " + merchantAccount.accountId);
+        System.out.println(payment.toString());
+        latestResponse = paymentClient.pay(payment);
     }
 
+    @Then("the response code is {int}")
+    public void theResponseCodeIs(Integer int1) {
+        assertEquals(int1.intValue(), latestResponse.getStatus());
+}
+
     @Then("the balance of the customer is {int}")
-    public void theBalanceOfTheCustomerIs(int arg0) {
-        var account = bankClient.getAccount(customerAccount.accountId).readEntity(Account.class);
-        assertEquals(account.getBalance(), new BigDecimal(String.valueOf(arg0)));
+    public void theBalanceOfTheCustomerIs(int balance) {
+        latestResponse = bankClient.getAccount(customerBankAccountId);
+        Account account = latestResponse.readEntity(Account.class);
+        assertEquals(new BigDecimal(String.valueOf(balance)), account.getBalance());
     }
 
     @And("the balance of the merchant is {int}")
-    public void theBalanceOfTheMerchantIs(int arg0) {
-        var account = bankClient.getAccount(merchantAccount.accountId).readEntity(Account.class);
-        assertEquals(account.getBalance(), new BigDecimal(String.valueOf(arg0)));
+    public void theBalanceOfTheMerchantIs(int balance) {
+        latestResponse = bankClient.getAccount(merchantBankAccountId);
+        Account account = latestResponse.readEntity(Account.class);
+        assertEquals(new BigDecimal(String.valueOf(balance)), account.getBalance());
     }
 
 

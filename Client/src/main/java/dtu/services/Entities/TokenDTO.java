@@ -3,7 +3,7 @@ package dtu.services.Entities;
 import java.util.List;
 
 public class TokenDTO {
-  List<String> tokens;
+  public List<String> tokens;
 
   public TokenDTO(List<String> tokens) {
     this.tokens = tokens;

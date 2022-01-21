@@ -148,4 +148,9 @@ public class Account {
         this.user = value;
     }
 
+    @Override
+    public String toString() {
+        return "Account [balance=" + balance + ", id=" + id + ", transactions=" + transactions + ", user=" + user + "]";
+    }
+
 }
