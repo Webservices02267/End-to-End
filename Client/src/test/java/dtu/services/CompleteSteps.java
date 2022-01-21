@@ -154,13 +154,25 @@ public class CompleteSteps {
     }
 
     @When("the merchant requests a report")
-    public void theMerchantRequestsAReport() {
+    public void theMerchantRequestsAReport() throws InterruptedException {
+        Thread.sleep(200);
         latestResponse = reportClient.getMerchantReport(merchantAccount.accountId);
+        System.out.println("Report client statsus: " + latestResponse.getStatus());
+        merchantReport= latestResponse.readEntity(ReportDTO.Merchant.class);
+        System.out.println(merchantReport);
     }
 
     @Then("the report contains a payment without customerId")
-    public void theReportContainsAPaymentWithoutCustomerId() {
-        assertTrue(false);
+    public void theMerchantReportContainsAPaymentWithoutCustomerId() {
+    	System.out.println(merchantReport + ", " + this.token);
+        var expectedPayment =new ReportDTO.MerchantPayment(merchantAccount.accountId, this.token, String.valueOf(100));
+
+        assertTrue(merchantReport.payments.contains(expectedPayment));
+//        System.out.println(merchantReport + ", " + this.token);
+//        var expectedPayment =new ReportDTO.MerchantPayment(merchantAccount.accountId, this.token, String.valueOf(100));
+//
+//        assertTrue(merchantReport.contains(expectedPayment));
+//        assertTrue(false);
     }
 
     @When("the manager requests a report")
