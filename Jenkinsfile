@@ -17,8 +17,10 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './build.sh'
+                timeout(time: 69, unit: 'SECONDS') {
+                    sh "chmod +x -R ${env.WORKSPACE}"
+                    sh './build.sh'
+                }
             }
         }
 
