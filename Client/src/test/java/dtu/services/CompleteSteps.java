@@ -3,9 +3,7 @@ package dtu.services;
 import dtu.services.Entities.Account;
 import dtu.services.Entities.CustomerTokensDTO;
 import dtu.services.Entities.DTO;
-import dtu.services.Entities.PaymentDTO;
 import dtu.services.Entities.ReportDTO;
-import dtu.services.Entities.Token;
 import dtu.services.Entities.TokenDTO;
 import io.cucumber.java.After;
 import io.cucumber.java.en.And;
@@ -15,12 +13,9 @@ import io.cucumber.java.en.When;
 
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
