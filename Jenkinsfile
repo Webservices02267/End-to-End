@@ -24,9 +24,12 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './test.sh'
+                timeout(time: 69, unit: 'SECONDS') {
+                    sh "chmod +x -R ${env.WORKSPACE}"
+                    sh './test.sh'
+                }
             }
+              
         }
     }
     post {
