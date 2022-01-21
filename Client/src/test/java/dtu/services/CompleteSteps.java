@@ -4,6 +4,7 @@ import dtu.services.Entities.Account;
 import dtu.services.Entities.CustomerTokensDTO;
 import dtu.services.Entities.DTO;
 import dtu.services.Entities.PaymentDTO;
+import dtu.services.Entities.ReportDTO;
 import dtu.services.Entities.Token;
 import dtu.services.Entities.TokenDTO;
 import io.cucumber.java.After;
@@ -20,6 +21,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CompleteSteps {
@@ -35,6 +37,10 @@ public class CompleteSteps {
     DTO.CreateAccountResponse customerAccount;
     DTO.CreateAccountResponse merchantAccount;
     TokenDTO tokens;
+    String token;
+    String description = "Very good description";
+    ReportDTO.Customer customerReport;
+    ReportDTO.Merchant merchantReport;
 
     Response latestResponse;
 
@@ -96,8 +102,8 @@ public class CompleteSteps {
 
     @When("the merchant initiates the payment for {int}")
     public void theMerchantInitiatesThePaymentFor(Integer amount) {
-        String description = "Very good description";
-        String token = tokens.tokens.stream().findFirst().get();
+        
+        token = tokens.tokens.stream().findFirst().get();
         DTO.CreatePayment payment = new DTO.CreatePayment(token, merchantAccount.accountId, String.valueOf(amount), description);
         System.out.println("Customer Bank account: " + customerBankAccountId + ", Customer Account Id: " + customerAccount.accountId);
         System.out.println("Merchant Bank account: " + merchantBankAccountId + ", Customer Account Id: " + merchantAccount.accountId);
@@ -125,29 +131,45 @@ public class CompleteSteps {
     }
 
 
-    Response report;
     @When("the customer requests a report")
-    public void theCustomerRequestsAReport() {
-        report = reportClient.getCustomerReport(customerAccount.accountId);
+    public void theCustomerRequestsAReport() throws InterruptedException {
+        Thread.sleep(200);
+        latestResponse = reportClient.getCustomerReport(customerAccount.accountId);
+        System.out.println("Report client statsus: " + latestResponse.getStatus());
+        customerReport = latestResponse.readEntity(ReportDTO.Customer.class);
+        System.out.println(customerReport);
+    }
+
+    @Then("the customer report contains a payment with token of {int}")
+    public void theCustomerReportContainsAPaymentWithTokenOf(Integer amount) {
+        System.out.println(customerReport + ", " + this.token);
+        var expectedPayment =new ReportDTO.CustomerPayment(customerAccount.accountId, merchantAccount.accountId, this.token, String.valueOf(amount));
+
+        assertTrue(customerReport.payments.contains(expectedPayment));
+        
+        //var actual = customerReport.payments.stream().filter(p -> p.token.equals(this.token)).findFirst().get();
+        //System.out.println(actual);
+        //assertEquals(this.token, actual);
+        //assertTrue(;// && t.amount == String.valueOf(payment)));
     }
 
     @Then("the report contains a payment")
     public void theReportContainsAPayment() {
-        assertEquals(200, report.getStatus());
+        assertTrue(false);
     }
 
     @When("the merchant requests a report")
     public void theMerchantRequestsAReport() {
-        report = reportClient.getMerchantReport(merchantAccount.accountId);
+        latestResponse = reportClient.getMerchantReport(merchantAccount.accountId);
     }
 
     @Then("the report contains a payment without customerId")
     public void theReportContainsAPaymentWithoutCustomerId() {
-        assertEquals(200, report.getStatus());
+        assertTrue(false);
     }
 
     @When("the manager requests a report")
     public void theManagerRequestsAReport() {
-        report = reportClient.getManagerReport();
+        latestResponse = reportClient.getManagerReport();
     }
 }
