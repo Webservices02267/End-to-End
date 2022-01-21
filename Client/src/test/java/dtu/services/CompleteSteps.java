@@ -20,6 +20,7 @@ import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CompleteSteps {
 
@@ -36,7 +37,6 @@ public class CompleteSteps {
     TokenDTO tokens;
 
 
-
     @After
     public void retireAccounts() {
         bankClient.deleteAccount(customerBankAccountId);
@@ -47,14 +47,22 @@ public class CompleteSteps {
     public void aCustomerWithBankAccountAndBalance(int arg0) {
         var res = bankClient.createAccountAndGetId(arg0, new BankClient.User(UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString()));
         customerBankAccountId = res.readEntity(String.class);
-        System.out.println( "a customer with bank account and balance " + arg0 + " Got bank account: " +  customerBankAccountId);
+    }
+
+    @Then("the customer have an account number")
+    public void theCustomerHaveAnAccountNumber() {
+        assertNotNull(customerBankAccountId);
     }
 
     @And("a merchant with bank account and balance {int}")
     public void aMerchantWithBankAccountAndBalance(int arg0) {
         var res = bankClient.createAccountAndGetId(arg0, new BankClient.User(UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString()));
         merchantBankAccountId = res.readEntity(String.class);
-        System.out.println(merchantBankAccountId);
+    }
+
+    @Then("the merchant have an account number")
+    public void theMerchantHaveAnAccountNumber() {
+        assertNotNull(merchantBankAccountId);
     }
 
 
